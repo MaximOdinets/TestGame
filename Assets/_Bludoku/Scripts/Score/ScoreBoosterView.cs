@@ -1,6 +1,8 @@
-using System;
+using _Bludoku.Scripts.Events;
 using DG.Tweening;
 using UnityEngine;
+using EventType = _Bludoku.Scripts.Events.EventType;
+
 
 namespace _Bludoku.Scripts.Score
 {
@@ -20,7 +22,7 @@ namespace _Bludoku.Scripts.Score
         {
             if (_isBoosterEnabled == boosterEnabled)
                 return;
-
+            
             booster.DOKill();
             _pulseTween?.Kill();
             _pulseTween = null;

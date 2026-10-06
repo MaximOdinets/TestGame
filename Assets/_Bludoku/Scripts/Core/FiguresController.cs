@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using _Bludoku.Scripts.Blocks;
 using _Bludoku.Scripts.Boards;
+using _Bludoku.Scripts.Events;
 using UnityEngine;
+using EventType = _Bludoku.Scripts.Events.EventType;
 
 namespace _Bludoku.Scripts.Core
 {
@@ -126,7 +128,9 @@ namespace _Bludoku.Scripts.Core
             figure.OnDragged -= FigureDragged;
             figure.OnReleased -= FigureReleased;
 
-            board.SetFigure(figure);
+            var clearedCount = board.SetFigure(figure);
+            
+            EventsBus.Instance.FireEvent(EventType.MoveFinished, clearedCount > 0);
 
             _currentFigures.Remove(figure);
             Destroy(figure.gameObject);

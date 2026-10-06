@@ -1,5 +1,7 @@
 using _Bludoku.Scripts.Boards;
+using _Bludoku.Scripts.Events;
 using UnityEngine;
+using EventType = _Bludoku.Scripts.Events.EventType;
 
 namespace _Bludoku.Scripts.Score
 {
@@ -36,6 +38,12 @@ namespace _Bludoku.Scripts.Score
             boosterView.SetBoosterEnabled(_scoreBoostSystem.IsBoosted);
             ScoreSystem.SetBoosterEnabled(_scoreBoostSystem.IsBoosted);
             ScoreSystem.AddSetScore(result.ClearedCount);
+            
+            EventsBus.Instance.FireEvent(EventType.MoveFigure);
+            
+            if(_scoreBoostSystem.IsBoosted)
+                EventsBus.Instance.FireEvent(EventType.Bonus);
+            
             scoreView.UpdateScore();
         }
 
